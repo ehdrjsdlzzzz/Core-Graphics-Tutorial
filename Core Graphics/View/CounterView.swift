@@ -36,6 +36,18 @@ import UIKit
         path.lineWidth = Constants.arcWidth
         counterColor.setStroke()
         path.stroke()
+        
+        let angleDifference: CGFloat = 2 * .pi - startAngle + endAngle
+        let arcLengthPerGlass = angleDifference / CGFloat(Constants.numberOfGlasses)
+        let outlineEndAngle = arcLengthPerGlass * CGFloat(counter) + startAngle
+        
+        let outlinePath = UIBezierPath(arcCenter: center, radius: bounds.width/2 - Constants.halfOfLineWidth, startAngle: startAngle, endAngle: outlineEndAngle, clockwise: true)
+        outlinePath.addArc(withCenter: center, radius: bounds.width/2 - Constants.arcWidth + Constants.halfOfLineWidth, startAngle: outlineEndAngle, endAngle: startAngle, clockwise: false)
+        outlinePath.close()
+        outlineColor.setStroke()
+        outlinePath.lineWidth = Constants.lineWidth
+        outlinePath.stroke()
+        
     }
     
 }
